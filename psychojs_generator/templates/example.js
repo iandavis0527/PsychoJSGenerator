@@ -2,7 +2,7 @@
  * Project1 Test *
  *****************/
 
-import { core, data, sound, util, visual } from './lib/psychojs-2021.2.3.js.js';
+import { core, data, sound, util, visual } from './lib/psychojs-2021.2.3.js';
 const { PsychoJS } = core;
 const { TrialHandler } = data;
 const { Scheduler } = util;
