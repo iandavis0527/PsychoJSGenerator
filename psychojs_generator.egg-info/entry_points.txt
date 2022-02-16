@@ -1,0 +1,3 @@
+[console_scripts]
+create-psychojs-project = psychojs_generator.build_project:main
+
