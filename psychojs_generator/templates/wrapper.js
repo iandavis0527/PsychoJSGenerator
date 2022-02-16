@@ -1,4 +1,4 @@
-import { core, data } from './lib/psychojs-2021.2.3.js.js';
+import { core, data } from './lib/psychojs-2021.2.3.js.js.js';
 
 const { PsychoJS } = core;
 const { ExperimentHandler } = data;

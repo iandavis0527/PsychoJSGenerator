@@ -1,1 +1,2 @@
 psychojs_generator
+templates
