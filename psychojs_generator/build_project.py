@@ -180,7 +180,7 @@ def build_template(
     )
 
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser(
         "Utility script to generate a project to host a psychojs project"
     )
@@ -214,3 +214,7 @@ if __name__ == "__main__":
         server_port=args.server_port,
         result_directory_name=args.result_directory_name,
     )
+
+
+if __name__ == "__main__":
+    main()
