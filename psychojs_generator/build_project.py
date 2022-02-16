@@ -187,7 +187,7 @@ def main():
     )
     parser.add_argument("project_name", help="The name of the project to generate")
     parser.add_argument(
-        "psychojs_version",
+        "--psychojs_version",
         default="2021.2.3",
         help="The version of psychojs used by your script (found inside generated JS script)",
     )
