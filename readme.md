@@ -9,4 +9,4 @@ Usage of this project is designed with simplicity and ease of use in mind, and r
 
 1. Install [NodeJS](https://nodejs.org/en/)
 1. Install python (3.6+)
-1. Install this package using pip (will require a mindmodeling login and added as a collaborator to this repo): `pip install git+https://git.mindmodeling.org/ian.davis/PsychoJSGenerator.git#egg=psychojs_generator`
+1. Install this package using pip (will require a mindmodeling login and added as a collaborator to this repo): `pip install git+https://github.com/iandavis0527/PsychoJSGenerator.git`
