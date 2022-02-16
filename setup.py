@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="psychojs_generator",
-    version="0.0.7",
+    version="0.0.8",
     author="Ian Davis",
     author_email="ian.davis.18.ctr@us.af.mil",
     description="A utility package that can generate nodejs and docker projects to host a custom psychojs project on the web, allowing CSV file uploads via NodeJS and multer.",
@@ -11,6 +11,19 @@ setup(
     license="BSD",
     packages=find_packages(),
     install_requires=["jinja2"],
+    data_files=[
+        (
+            "templates",
+            [
+                "templates/example.js",
+                "templates/index.html.j2",
+                "templates/package.json",
+                "templates/server_config.json",
+                "templates/server.js",
+                "templates/wrapper.js",
+            ],
+        ),
+    ],
     entry_points={
         "console_scripts": [
             "create-psychojs-project=psychojs_generator.build_project:main",
