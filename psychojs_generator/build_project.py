@@ -124,7 +124,8 @@ def build_template(
 ):
     project_path = pathlib.Path(project_name).resolve()
     experiment_path = pathlib.Path(project_path, "experiment").resolve()
-    template_path = pathlib.Path(pathlib.Path(__file__).parent, "templates")
+    template_path = pathlib.Path(pathlib.Path(__file__).parent.absolute(), "templates")
+    print("Using template directory {0}".format(template_path))
     template_env = Environment(
         loader=FileSystemLoader(template_path),
         autoescape=select_autoescape(),
