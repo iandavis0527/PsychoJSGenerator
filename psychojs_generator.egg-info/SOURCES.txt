@@ -8,10 +8,10 @@ psychojs_generator.egg-info/dependency_links.txt
 psychojs_generator.egg-info/entry_points.txt
 psychojs_generator.egg-info/requires.txt
 psychojs_generator.egg-info/top_level.txt
-templates/__init__.py
-templates/example.js
-templates/index.html.j2
-templates/package.json
-templates/server.js
-templates/server_config.json
-templates/wrapper.js
+psychojs_generator/templates/__init__.py
+psychojs_generator/templates/example.js
+psychojs_generator/templates/index.html.j2
+psychojs_generator/templates/package.json
+psychojs_generator/templates/server.js
+psychojs_generator/templates/server_config.json
+psychojs_generator/templates/wrapper.js

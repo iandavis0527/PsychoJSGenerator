@@ -9,10 +9,15 @@ import os
 from jinja2 import FileSystemLoader, Environment, select_autoescape
 
 
+def run_command(args, cwd=None):
+    return subprocess.run(" ".join(args), cwd=cwd, shell=True)
+
+
 def delete_git_repo(path):
     clean_path = str(path.absolute().resolve())
+
     if platform.system().lower() == "windows":
-        return subprocess.run(
+        return run_command(
             [
                 "powershell.exe",
                 "Remove-Item",
@@ -32,19 +37,17 @@ def bundle_psychojs(project_path, psychojs_version, use_latest_git=False):
         delete_git_repo(temp_dir)
 
     cmd = ["git", "clone", "https://github.com/psychopy/psychojs.git", str(temp_dir)]
-    print("Cloning psychojs repo: {0}".format(cmd))
-    subprocess.run(cmd, shell=True)
+    print("Cloning psychojs repo: {0}".format(" ".join(cmd)))
+    run_command(cmd)
 
     if not use_latest_git:
         cmd = ["git", "checkout", "4fea70f605859b0984641268a4243c476e01e059"]
-        print("checking out psychojs snapshot: {0}".format(cmd))
-        # we use a specific commit of the psychojs repo to prevent future breaking changes. 
+        print("checking out psychojs snapshot: {0}".format(" ".join(cmd)))
+        # we use a specific commit of the psychojs repo to prevent future breaking changes.
         # If you want the latest changes, remove or comment out this line.
-        subprocess.run(cmd, shell=True, cwd=temp_dir)
+        run_command(cmd, cwd=temp_dir)
 
-    print(
-        "Changing version definition in package.json file to match provided psychojs version"
-    )
+    print("Changing version definition in package.json file to match provided psychojs version")
     package_json_filepath = pathlib.Path(temp_dir, "package.json").absolute().resolve()
 
     with open(package_json_filepath) as psychojs_package_file:
@@ -55,10 +58,11 @@ def bundle_psychojs(project_path, psychojs_version, use_latest_git=False):
         json.dump(package_data, psychojs_package_file)
 
     print("Running npm install inside temp dir at {0}".format(temp_dir))
-    subprocess.run(["npm", "install"], cwd=temp_dir, shell=True)
+    run_command(["npm", "install"], cwd=temp_dir)
+
     print("Running npm build js and css inside temp dir at {0}".format(temp_dir))
-    subprocess.run(["npm", "run", "build:js"], cwd=temp_dir, shell=True)
-    subprocess.run(["npm", "run", "build:css"], cwd=temp_dir, shell=True)
+    run_command(["npm", "run", "build:js"], cwd=temp_dir)
+    run_command(["npm", "run", "build:css"], cwd=temp_dir)
 
     lib_folder = pathlib.Path(project_path, "lib")
 
@@ -69,9 +73,7 @@ def bundle_psychojs(project_path, psychojs_version, use_latest_git=False):
 
     for dist_file in pathlib.Path(temp_dir, "out").glob(psychojs_dist_pattern):
         destination = pathlib.Path(lib_folder, dist_file.name)
-        print(
-            "Copying psychojs lib file from {0} to {1}".format(dist_file, destination)
-        )
+        print("Copying psychojs lib file from {0} to {1}".format(dist_file, destination))
         shutil.copyfile(dist_file, destination)
 
     delete_git_repo(temp_dir)
@@ -86,7 +88,7 @@ def build_npm_repo(project_name, project_path, template_path):
     with open(pathlib.Path(project_path, "package.json"), "w") as package_file:
         json.dump(package_data, package_file)
 
-    subprocess.run(["npm", "install"], cwd=project_path, shell=True)
+    run_command(["npm", "install"], cwd=project_path)
 
 
 def build_node_server(
@@ -134,9 +136,7 @@ def build_template(
         project_path.mkdir()
     else:
         if len(os.listdir(project_path)) > 0:
-            raise RuntimeError(
-                "Project directory at {0} exists and is not empty!".format(project_path)
-            )
+            raise RuntimeError("Project directory at {0} exists and is not empty!".format(project_path))
 
     if not experiment_path.exists():
         experiment_path.mkdir()
@@ -180,9 +180,7 @@ def build_template(
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        "Utility script to generate a project to host a psychojs project"
-    )
+    parser = argparse.ArgumentParser("Utility script to generate a project to host a psychojs project")
     parser.add_argument("project_name", help="The name of the project to generate")
     parser.add_argument(
         "--psychojs_version",
