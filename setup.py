@@ -10,19 +10,19 @@ setup(
     license="BSD",
     packages=["psychojs_generator"],
     install_requires=["jinja2"],
-    data_files=[
-        (
-            "psychojs_generator",
-            [
-                "templates/example.js",
-                "templates/index.html.j2",
-                "templates/package.json",
-                "templates/server_config.json",
-                "templates/server.js",
-                "templates/wrapper.js",
-            ],
-        ),
-    ],
+    # data_files=[
+    #     (
+    #         "psychojs_generator",
+    #         [
+    #             "templates/example.js",
+    #             "templates/index.html.j2",
+    #             "templates/package.json",
+    #             "templates/server_config.json",
+    #             "templates/server.js",
+    #             "templates/wrapper.js",
+    #         ],
+    #     ),
+    # ],
     entry_points={
         "console_scripts": [
             "create-psychojs-project=psychojs_generator.build_project:main",
