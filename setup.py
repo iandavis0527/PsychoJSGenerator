@@ -1,19 +1,18 @@
-from importlib_metadata import entry_points
-from setuptools import setup, find_packages
+from setuptools import setup
 
 setup(
     name="psychojs_generator",
-    version="0.0.8",
+    version="0.0.9",
     author="Ian Davis",
     author_email="ian.davis.18.ctr@us.af.mil",
     description="A utility package that can generate nodejs and docker projects to host a custom psychojs project on the web, allowing CSV file uploads via NodeJS and multer.",
     include_package_data=True,
     license="BSD",
-    packages=find_packages(),
+    packages=["psychojs_generator"],
     install_requires=["jinja2"],
-    data_files=[
+    package_data=[
         (
-            "templates",
+            "psychojs_generator",
             [
                 "templates/example.js",
                 "templates/index.html.j2",
