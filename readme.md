@@ -57,10 +57,10 @@ These are the key files to note (in order of areas that you will likely change):
 # Troubleshooting
 
 One area of uncertainty with this wrapper relies on the version of psychojs that is being targeted. 
+It seems that the psychojs repository version (currently 2021.2.1) lags behind the main psychopy version (currently 2021.2.3).
 For the sake of compatibility, the generator clones the [psychojs github repository](https://github.com/psychopy/psychojs/blob/main/src/data/index.js) and targets a specific revision, 
 the HEAD of the repo at the time of writing this tool (02/16/2022).
-However, the current version of this repository does not directly match up with the version of psychojs targeted by the psychopy builder gui (2021.2.1 vs 2021.2.3, respectively).
-As such, this tool directly remaps the 2021.2.1 version to 2021.2.3 by default.
+This tool then directly remaps the 2021.2.1 version to 2021.2.3 by default.
 In the future, the builder may target newer and newer versions, and this version replacement will no longer work properly.
 
 To account for this in a new project, you can use the {psychojs_version} parameter of the `create-psychojs-project` script. 
