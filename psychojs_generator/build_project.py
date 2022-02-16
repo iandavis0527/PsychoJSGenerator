@@ -31,18 +31,16 @@ def bundle_psychojs(project_path, psychojs_version, use_latest_git=False):
     if temp_dir.exists():
         delete_git_repo(temp_dir)
 
-    print("Cloning psychojs repo")
-    subprocess.run(
-        ["git", "clone", "https://github.com/psychopy/psychojs.git", str(temp_dir)],
-        shell=True,
-    )
+    cmd = ["git", "clone", "https://github.com/psychopy/psychojs.git", str(temp_dir)]
+    print("Cloning psychojs repo: {0}".format(cmd))
+    subprocess.run(cmd, shell=True)
 
     if not use_latest_git:
-        subprocess.run(
-            ["git", "checkout", "4fea70f605859b0984641268a4243c476e01e059"],
-            shell=True,
-            cwd=temp_dir,
-        )  # we use a specific commit of the psychojs repo to prevent future breaking changes. If you want the latest changes, remove or comment out this line.
+        cmd = ["git", "checkout", "4fea70f605859b0984641268a4243c476e01e059"]
+        print("checking out psychojs snapshot: {0}".format(cmd))
+        # we use a specific commit of the psychojs repo to prevent future breaking changes. 
+        # If you want the latest changes, remove or comment out this line.
+        subprocess.run(cmd, shell=True, cwd=temp_dir)
 
     print(
         "Changing version definition in package.json file to match provided psychojs version"
