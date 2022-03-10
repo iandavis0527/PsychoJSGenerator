@@ -1,11 +1,11 @@
 import argparse
 import pathlib
-from re import L, template
 import subprocess
 import json
 import platform
 import shutil
 import os
+
 from jinja2 import FileSystemLoader, Environment, select_autoescape
 
 
@@ -96,6 +96,8 @@ def build_node_server(
     template_path,
     server_port=3000,
     result_directory_name="results",
+    vm_name="vm_name",
+    vm_username="vm_username",
 ):
     shutil.copyfile(
         pathlib.Path(template_path, "server.js"),
@@ -108,11 +110,27 @@ def build_node_server(
     server_config["result_directory"] = result_directory_name
     server_config["port"] = server_port
 
+    server_config["vm_name"] = vm_name
+    server_config["vm_username"] = vm_username
+
     with open(
         pathlib.Path(project_path, "server_config.json"),
         "w",
     ) as server_config_file:
-        json.dump(server_config, server_config_file)
+        json.dump(server_config, server_config_file, indent=4)
+
+
+def generate_ssh_key(project_path):
+    run_command(
+        [
+            "ssh-keygen",
+            "-q",
+            "-t rsa",
+            "-N ''",
+            "-f {0}".format(project_path.joinpath("id_rsa")),
+        ],
+        cwd=project_path,
+    )
 
 
 def build_template(
@@ -121,11 +139,15 @@ def build_template(
     use_latest_git=False,
     server_port=3000,
     result_directory_name="results",
+    vm_name="vm_name",
+    vm_username="vm_username",
 ):
     project_path = pathlib.Path(project_name).resolve()
     experiment_path = pathlib.Path(project_path, "experiment").resolve()
     template_path = pathlib.Path(pathlib.Path(__file__).parent.absolute(), "templates")
+
     print("Using template directory {0}".format(template_path))
+
     template_env = Environment(
         loader=FileSystemLoader(template_path),
         autoescape=select_autoescape(),
@@ -156,6 +178,21 @@ def build_template(
         )
 
     shutil.copyfile(
+        pathlib.Path(template_path, "Dockerfile"),
+        pathlib.Path(project_path, "Dockerfile"),
+    )
+
+    shutil.copyfile(
+        pathlib.Path(template_path, "deploy_experiment.py"),
+        pathlib.Path(project_path, "deploy_experiment.py"),
+    )
+
+    shutil.copyfile(
+        pathlib.Path(template_path, "run_docker_container.sh"),
+        pathlib.Path(project_path, "run_docker_container.sh"),
+    )
+
+    shutil.copyfile(
         pathlib.Path(template_path, "wrapper.js"),
         pathlib.Path(experiment_path, "wrapper.js"),
     )
@@ -170,6 +207,8 @@ def build_template(
         project_path=project_path,
         server_port=server_port,
         result_directory_name=result_directory_name,
+        vm_name=vm_name,
+        vm_username=vm_username,
     )
 
     build_npm_repo(
@@ -177,6 +216,8 @@ def build_template(
         project_path=project_path,
         template_path=template_path,
     )
+
+    generate_ssh_key(project_path=project_path)
 
 
 def main():
@@ -203,6 +244,14 @@ def main():
         default="results",
         help="The name of the directory that results will be stored in (as CSV)",
     )
+    parser.add_argument(
+        "--vm_name", default="vm_name", help="The name of your MindModeling VM (leave blank if you don't have one yet)"
+    )
+    parser.add_argument(
+        "--vm_username",
+        default="vm_username",
+        help="Your MM VM username (leave blank if you don't have one yet)",
+    )
     args = parser.parse_args()
     build_template(
         project_name=args.project_name,
@@ -210,6 +259,8 @@ def main():
         use_latest_git=args.latest_version,
         server_port=args.server_port,
         result_directory_name=args.result_directory_name,
+        vm_name=args.vm_name,
+        vm_username=args.vm_username,
     )
 
 

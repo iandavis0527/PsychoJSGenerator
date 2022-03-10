@@ -1,4 +1,8 @@
 {
-    "result_directory": "results",
-    "port": 3000
+  "result_directory": "results",
+  "port": 8080,
+  "vm_name": "vm_name",
+  "vm_username": "vm_username",
+  "container_name": "psychojs-project",
+  "version_number": "2020.01.01.00.00"
 }
