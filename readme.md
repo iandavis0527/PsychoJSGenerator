@@ -50,7 +50,7 @@ Once you have exchanged request with your MM contact, you should receive a VM na
 1. Change the `vm_username` key to your VM username.
 1. Save the file.
 1. You are now ready to deploy to MM using the `deploy_experiment.py` python script.
-
+1. Whenever you make changes to your project, simply run `deploy_experiment.py` again.
 
 # Project Overview
 
