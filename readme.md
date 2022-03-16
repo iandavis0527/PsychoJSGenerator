@@ -26,7 +26,7 @@ Usage of this project is designed with simplicity and ease of use in mind, and r
 1. Install this package using pip: `pip install git+https://github.com/iandavis0527/PsychoJSGenerator.git`
 1. Generate a template for your project: `create-psychojs-project {project_name}`
 1. Run your project (locally) using: `run-psychojs-project` from your project directory
-1. Deploy your project to MM using: `python deploy_experiment.py` from your project directory
+1. Deploy your project to MM using: See [Deploying to MindModeling](#Deploying to MindModeling)
 
 # Project Overview
 
