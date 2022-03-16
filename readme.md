@@ -72,6 +72,21 @@ When developing or testing your experiment, it will be extremely useful to run y
 # Deploying to MindModeling
 
 When you are ready to deploy your experiment to MindModeling, there are a few extra steps you will need to take.
+Collect your SSH public key file and email your MM contact with that file requesting a new VM.
+
+## SSH Key Exchange
+
+The `id_rsa` and `id_rsa.pub` files generated within your project are necessary to setup secure communication with MindModeling, and they make up an SSH key pair. `id_rsa` is a private file, and you should *NOT* share this with anyone. `id_rsa.pub` is the public part of your key that you will need to share with your MindModeling admin in order to access MindModeling. 
+
+## Project SSH Configuration
+
+Once you have exchanged request with your MM contact, you should receive a VM name and VM username. You will need to update your project configs with this information.
+
+1. Open `server_config.json` (plain text file).
+1. Change the `vm_name` key to your VM name.
+1. Change the `vm_username` key to your VM username.
+1. Save the file.
+1. You are now ready to deploy to MM using the `deploy_experiment.py` python script.
 
 # Troubleshooting
 
