@@ -1,3 +1,4 @@
+mkdir -p $2
 docker stop $1
 docker rm $1
 docker container prune --force
