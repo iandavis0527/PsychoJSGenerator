@@ -203,7 +203,7 @@ def build_template(
     )
     shutil.copyfile(
         pathlib.Path(template_path.parent, "readme.md"),
-        pathlib.Path(experiment_path, "readme.md"),
+        pathlib.Path(experiment_path.parent, "readme.md"),
     )
 
     build_node_server(
