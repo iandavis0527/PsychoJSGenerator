@@ -80,6 +80,7 @@ def main():
                 str(path.joinpath("Dockerfile")),
                 str(path.joinpath("server.js")),
                 str(path.joinpath("run_docker_container.sh")),
+                str(path.joinpath("auth.js")),
             ]
         ),
         "~/psychojs-project/",

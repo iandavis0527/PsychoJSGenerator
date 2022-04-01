@@ -24,8 +24,8 @@ Usage of this project is designed with simplicity and ease of use in mind, and r
 1. [Windows] Launch `git bash` (from start menu or desktop)
 1. [Mac/Linux] Launch a terminal window
 1. Install this package using pip: `pip install git+https://github.com/iandavis0527/PsychoJSGenerator.git`
-1. Generate a template for your project: `create-psychojs-project {project_name}`
-1. Add your psychopy project files to the `experiment` folder within the generated project directory.
+1. Generate a template for your project: `create-psychojs-project {project_name}`. project_name should match the name of your psychopy JS file.
+1. Add your psychopy project files to the `experiment` folder within the generated project directory. Most importantly, the .js file created by psychopy.
 1. Run your project (locally) using: `run-psychojs-project` from your project directory
 1. Deploy your project to MM using: See [Deploying to MindModeling](#Deploying-to-MindModeling)
 
@@ -40,7 +40,7 @@ Collect your SSH public key file and email your MM contact with that file reques
 
 ## SSH Key Exchange
 
-The `id_rsa` and `id_rsa.pub` files generated within your project are necessary to setup secure communication with MindModeling, and they make up an SSH key pair. `id_rsa` is a private file, and you should *NOT* share this with anyone. `id_rsa.pub` is the public part of your key that you will need to share with your MindModeling admin in order to access MindModeling. 
+The `id_rsa` and `id_rsa.pub` files generated within your project are necessary to setup secure communication with MindModeling, and they make up an SSH key pair. `id_rsa` is a private file, and you should _NOT_ share this with anyone. `id_rsa.pub` is the public part of your key that you will need to share with your MindModeling admin in order to access MindModeling.
 
 ## Project SSH Configuration
 

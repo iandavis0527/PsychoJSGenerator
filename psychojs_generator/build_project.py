@@ -178,6 +178,11 @@ def build_template(
         )
 
     shutil.copyfile(
+        pathlib.Path(template_path, "login.ejs"),
+        pathlib.Path(experiment_path, "login.ejs"),
+    )
+
+    shutil.copyfile(
         pathlib.Path(template_path, "Dockerfile"),
         pathlib.Path(project_path, "Dockerfile"),
     )
@@ -195,6 +200,10 @@ def build_template(
     shutil.copyfile(
         pathlib.Path(template_path, "wrapper.js"),
         pathlib.Path(experiment_path, "wrapper.js"),
+    )
+    shutil.copyfile(
+        pathlib.Path(template_path, "auth.js"),
+        pathlib.Path(project_path, "auth.js"),
     )
 
     shutil.copyfile(
