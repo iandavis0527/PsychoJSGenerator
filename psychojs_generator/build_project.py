@@ -201,6 +201,10 @@ def build_template(
         pathlib.Path(template_path, "example.js"),
         pathlib.Path(experiment_path, "{0}.js".format(project_name)),
     )
+    shutil.copyfile(
+        pathlib.Path(template_path.parent, "readme.md"),
+        pathlib.Path(experiment_path, "readme.md"),
+    )
 
     build_node_server(
         template_path=template_path,
