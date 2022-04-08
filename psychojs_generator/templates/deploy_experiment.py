@@ -56,8 +56,9 @@ def main():
     with open(path.joinpath("server_config.json"), "w") as json_file:
         json.dump(server_config, json_file)
 
+    
     run_ssh_command(
-        command="mkdir psychojs-project; mkdir psychojs-project/results",
+        command="rm -rf psychojs-project; mkdir psychojs-project; mkdir psychojs-project/results",
         private_key_file=private_key_file,
         vm_name=vm_name,
         vm_username=vm_username,

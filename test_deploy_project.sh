@@ -7,7 +7,7 @@ rm -rf project1/id_rsa.pub
 cp ~/.ssh/id_rsa project1/
 cp ~/.ssh/id_rsa.pub project1/
 
-cd project1
-npm run debug
+# cd project1
+# npm run debug
 
-# python project1/deploy_experiment.py
+python project1/deploy_experiment.py

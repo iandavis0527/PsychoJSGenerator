@@ -4,5 +4,6 @@
   "vm_name": "vm_name",
   "vm_username": "vm_username",
   "container_name": "psychojs-project",
-  "version_number": "2020.01.01.00.00"
+  "version_number": "2020.01.01.00.00",
+  "resource_directory": "./experiment/resources"
 }
