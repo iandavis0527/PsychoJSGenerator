@@ -133,7 +133,7 @@ These are the key files to note (in order of areas that you will likely change):
 ## Update 04/18/2022
 
 The tool was updated to extrapolate the required PsychoJS version from your project by requiring you to provide your PsychoJS Javascript generated file when creating the project.
-Once we've determined what version your code expects, we target the latest and then rename the generated PsychoJS lib files to match that version.
+Once we've determined what version your code expects, we target the latest version and then rename the generated PsychoJS lib files to match that version.
 Unlike previously mentioned, the candidate version 2021.2.1 is NOT a good idea, as it missing important features for projects, notably the MultiStairHandler.
 
 ## Browser Caching
