@@ -93,7 +93,7 @@ For example, a filled in `server_config.json` file might look like this:
 
 # Project Overview
 
-The newly created project will have several template and complete files provided for you, in the following structure:
+The newly created project will have several template files and complete files provided for you, in the following structure:
 
 ```
 project
