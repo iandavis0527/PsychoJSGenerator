@@ -59,8 +59,8 @@ Hello MindModeling administrators,
 I would like to request a virtual machine on MindModeling to host an experiment for data collection.
 I will be using the PsychoJS Generator tool developed by Ian Davis.
 I have an existing MindModeling account {account name}, and have permission to use MindModeling from {contact name}.
-I would like my Virtual Machine to be named {machine_name}.
-I would like my VM username to be {vm_username}.
+I would like my virtual machine to be named {machine_name}.
+I would like my virtual machine username to be {vm_username}.
 I would like to redirect internet traffic to the url https://sub_url.mindmodeling.org to my vm at port 8080.
 I have attached my id_rsa.pub file for SSH access.
 ```
