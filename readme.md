@@ -76,7 +76,7 @@ Once you have received confirmation of your virtual machine setup from the MindM
 1. You are now ready to deploy to MindModeling using the `deploy_experiment.py` python script.
 1. Whenever you make changes to your project, simply run `deploy_experiment.py` again. This will ensure the changes are propagated on your MindModeling virtual machine.
 
-For example, a filled in server_config.json file might look like this:
+For example, a filled in `server_config.json` file might look like this:
 
 ```
 {
