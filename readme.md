@@ -49,7 +49,7 @@ You will need to pick out a few names:
 
 - The `machine_name` of your virtual machine. This will be an internal name only used by you and your team, and can be anything you like. You will use it to connect to your machine via the internet and configure files. Depending on the needs of the administrator, this may be prepended with the letters `vm-`.
 - Your `vm_username` on your virtual machine. By default, this will be your name (firstnamelastname) with no spaces or caps, but you may request a specific username if desired. This is also internal and will be used to connect your machine for hosting and configuring.
-- The `sub-url` that you'd like to reach your experiment at. Once hosted, your experiment will be accessible from a browser at https://sub-url.mindmodeling.org
+- The `sub-url` that you will reach your experiment at. Once hosted, your experiment will be accessible from a browser at https://sub-url.mindmodeling.org
 
 Collect your `id_rsa.pub` file and attach it to an email to your MindModeling administrator. Here is a template email to use (replace using the names you decided in the checklist above):
 
