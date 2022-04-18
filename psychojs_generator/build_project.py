@@ -281,6 +281,7 @@ def main():
     parser.add_argument(
         "--latest_version",
         action="store_true",
+        default=True,
         help="Checkout the latest psychojs changes from the git (instead of the stable commit snapshot captured for this template)",
     )
     parser.add_argument(
