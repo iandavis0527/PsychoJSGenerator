@@ -22,7 +22,7 @@ This project is designed with simplicity and ease of use in mind, and requires o
 
 1. [Windows] Launch `git bash` (from start menu or desktop)
 1. [Mac/Linux] Launch a terminal window
-1.1. All the steps below should be run within this terminal window. You can simply copy and paste the commands, and replace name where relevant.
+1. 1. All the steps below should be run within this terminal window. You can simply copy and paste the commands, and replace name where relevant.
 3. Install this package using pip: `pip install git+https://github.com/iandavis0527/PsychoJSGenerator.git`
 4. Generate a template for your project: `create-psychojs-project /path/to/project_script.js`. Replace the path with the path to your psychojs generated .js file.
 5. Run your project (locally) using: `run-psychojs-project` from your project directory
@@ -35,7 +35,7 @@ You can run `npm run start` from a terminal or command prompt in your project di
 
 # Deploying to MindModeling
 
-When you are ready to deploy your experiment to MindModeling, you will need to acquire a VM by contacting the MindModeling administrators.
+When you are ready to deploy your experiment to MindModeling, you will need to acquire a virtual machine by contacting the MindModeling administrators.
 You should get contact information for these individuals from your original contact about MindModeling.
 
 ## SSH Key Exchange
