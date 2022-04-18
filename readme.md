@@ -119,7 +119,7 @@ project
 These are the key files to note (in order of areas that you will likely change):
 
 - `experiment/project.js`: This file will be named after your project, and this should be the file that PsychoPy builder generates when you hit "build javascript". For ease of use, you can keep all your PsychoPy project files in the `experiment` folder.
-- `server_config.json`: Configuration file for the server, you won't need to edit this except to change the port that the server listens on or where result CSVs that get uploaded get saved.
+- `server_config.json`: Configuration file for the server, you won't need to edit this except to change the port that the server listens on, or where uploaded result CSVs are saved.
 - `experiment/index.html`: The main HTML file served by the NodeJS server. You should not need to edit this as the main thing it does is include your experiment/project.js file.
 - `package.json`: The npm package definition file, you should not need to edit this. It contains required dependencies for your server to run.
 - `server.js`: The core NodeJS server file, you should not need to edit this.
