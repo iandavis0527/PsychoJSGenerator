@@ -1,8 +1,6 @@
 # Overview
 
-[Probably delete this, nobody will know what this means]
-Leveraging the [PsychoJS](https://www.psychopy.org/online/index.html) library, we expose a utility package that can generate nodejs and docker projects to host a custom PsychoJS project on the web,
-allowing CSV file uploads via NodeJS and multer.
+Leveraging the [PsychoJS](https://www.psychopy.org/online/index.html) library, provide a utility tool which helps host these experiments using the MindModeling server architecture.
 
 # Before Using
 
@@ -138,7 +136,7 @@ Unlike previously mentioned, the candidate version 2021.2.1 is NOT a good idea, 
 
 ## Browser Caching
 
-During development of your project, you may occasionally run into issues where your recent changes don't show up when deploying to MindModeling, or even when running locally (this should be much more rare).
+During development of your project, you may occasionally run into issues where your recent changes don't show up when deploying to MindModeling, or even when running locally (this should be rare).
 This can be caused by browser caches storing older versions of your experiment and not recognizing that there are newer changes available.
 If this happens, always try to clear your browser cache first (it should be sufficient to clear images/files, keep cookies and everything else to prevent being signed out of other sites).
 
