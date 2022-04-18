@@ -67,13 +67,13 @@ I have attached my id_rsa.pub file for SSH access.
 
 ## Project SSH Configuration
 
-Once you have received confirmation of your VM setup from the MindModeling adminstrator, you will need to update your project configuration with the relevant information.
+Once you have received confirmation of your virtual machine setup from the MindModeling adminstrator, you will need to update your project configuration with the relevant information.
 
 1. Open `server_config.json` (plain text file).
-1. Change the `vm_name` key to your VM name.
-1. Change the `vm_username` key to your VM username.
+1. Change the `vm_name` key to your virtual machine name.
+1. Change the `vm_username` key to your virtual machine username.
 1. Save the file.
-1. You are now ready to deploy to MM using the `deploy_experiment.py` python script.
+1. You are now ready to deploy to MindModeling using the `deploy_experiment.py` python script.
 1. Whenever you make changes to your project, simply run `deploy_experiment.py` again. This will ensure the changes are propagated on your MindModeling virtual machine.
 
 For example, a filled in server_config.json file might look like this:
