@@ -38,7 +38,7 @@ You can run `npm run start` from a terminal or command prompt in your project di
 When you are ready to deploy your experiment to MindModeling, you will need to acquire a virtual machine by contacting the MindModeling administrators.
 You should get contact information for these individuals from your original contact about MindModeling.
 
-## SSH (Secure Shell) Key Exchange
+## Secure Shell (SSH) Key Exchange
 
 The `id_rsa` and `id_rsa.pub` files generated within your project are necessary to setup secure communication with MindModeling, and they make up an SSH key pair.
 
