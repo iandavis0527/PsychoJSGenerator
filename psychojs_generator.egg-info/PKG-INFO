@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: psychojs-generator
-Version: 2022.4.8.10.52
+Version: 2022.4.8.10.55
 Summary: A utility package that can generate nodejs and docker projects to host a custom psychojs project on the web, allowing CSV file uploads via NodeJS and multer.
 Home-page: UNKNOWN
 Author: Ian Davis

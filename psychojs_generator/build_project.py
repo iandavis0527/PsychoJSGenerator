@@ -228,12 +228,12 @@ def build_template(
         pathlib.Path(project_path, "run_docker_container.sh"),
     )
 
-    # shutil.copyfile(
-    #     pathlib.Path(template_path, "wrapper.js"),
-    #     pathlib.Path(experiment_path, "wrapper.js"),
-    # )
-
     build_wrapper(template_path, experiment_path, psychojs_version)
+
+    resource_folder = pathlib.Path(pathlib.Path(project_script_name).parent, "resources")
+
+    if resource_folder.exists():
+        shutil.copytree(resource_folder, pathlib.Path(experiment_path, "resources"))
 
     shutil.copyfile(
         pathlib.Path(template_path, "auth.js"),
@@ -241,7 +241,7 @@ def build_template(
     )
 
     shutil.copyfile(
-        pathlib.Path(template_path, "example.js"),
+        pathlib.Path(project_script_name),
         pathlib.Path(experiment_path, "{0}.js".format(project_name)),
     )
     shutil.copyfile(

@@ -1,5 +1,5 @@
 rm -rf project1/
-python -m psychojs_generator.build_project project1 --vm_name vm-online-experiments2 --vm_username iandavis --server_port 3000
+python -m psychojs_generator.build_project integration-testing-project/project1.js --vm_name vm-online-experiments2 --vm_username iandavis --server_port 4000
 
 rm -rf project1/id_rsa
 rm -rf project1/id_rsa.pub
