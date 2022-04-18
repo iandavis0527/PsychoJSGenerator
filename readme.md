@@ -42,7 +42,7 @@ You should get contact information for these individuals from your original cont
 
 The `id_rsa` and `id_rsa.pub` files generated within your project are necessary to setup secure communication with MindModeling, and they make up an SSH key pair.
 
-- `id_rsa` is a private file, and you should _NOT_ share this with anyone.
+- `id_rsa` is a private file, and you should **NOT** share this with anyone.
 - `id_rsa.pub` is the public part of your key that you will need to share with your MindModeling admin in order to access MindModeling.
 
 You will need to pick out a few names:
