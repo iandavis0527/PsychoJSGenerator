@@ -3,12 +3,63 @@
         <title>
             login to mind modeling
         </title>
+        <style>
+            .login-form {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            .login-container {
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: stretch;
+                width: 450px;
+                margin: auto;
+                border: 1px solid black;
+                border-radius: 12px;
+                box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+                text-align: center;
+            }
+            .login-form > input {
+                margin: 10px 0;
+                height: 40px;
+                border-width: 1px;
+                border: 2px solid gray;
+                border-top: none;
+                border-left: none;
+                border-right: none;
+                width: 350px;
+            }
+
+            .login-form > input[type="submit"] {
+                background-color: rgb(0, 200, 255);
+                border: 1px solid gray;
+                border-radius: 12px;
+            }
+            .login-form > input[type="submit"]:hover {
+                background-color: rgb(0, 255, 255);
+               
+            }
+            .login-separator {
+                width: 100%;
+                opacity: .75;
+                color: lightblue;
+            }
+        </style>
     </head>
-    <body>
-        <form class="login-form" action="/login" method="post">
-            <input type="text" class="username-input" placeholder="Username" name="username"/>
-            <input type="password" class="passsword-input" password="Password" name="password"/>
-            <input type="submit" value="Login"/>
-        </form>
+    <body><div class="login-container">
+                <h1>PsychoJS Results Dashboard</h1>
+                <p>Welcome to the psychoJS Results Dashboard, please use your MindModeling login to continue and export data files.</p>
+                <hr class="login-separator"/>
+                <form class="login-form" action="/login" method="post">
+                    <input type="text" class="username-input" placeholder="Username" name="username" />
+                    <input type="password" class="passsword-input" placeholder="Password" name="password" />
+                    <input type="submit" value="Login" />
+                </form>
+    </div>
+
     </body>
 </html>

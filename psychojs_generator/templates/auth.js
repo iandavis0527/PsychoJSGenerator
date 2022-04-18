@@ -33,12 +33,12 @@ async function authenticate(req, res) {
 }
 
 function isAuthenticated(req, res) {
-  if (isLocal(req)) {
-    res.cookie("authenticated", true, {
-      expires: new Date(Date.now() + 3600000),
-    });
-    return true;
-  }
+  //   if (isLocal(req)) {
+  //     res.cookie("authenticated", true, {
+  //       expires: new Date(Date.now() + 3600000),
+  //     });
+  //     return true;
+  //   }
 
   console.debug(req.cookies.authenticated);
   return req.cookies.authenticated;
