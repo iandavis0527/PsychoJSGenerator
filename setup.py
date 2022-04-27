@@ -23,6 +23,7 @@ setup(
     entry_points={
         "console_scripts": [
             "create-psychojs-project=psychojs_generator.build_project:main",
+            "run-psychojs-project=psychojs_generator.run_psychojs_project:main",
         ]
     },
 )

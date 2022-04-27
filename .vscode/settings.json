@@ -11,5 +11,6 @@
     "**/dist": true,
     "*.egg-info/": true,
     "**/__pycache__": true
-  }
+  },
+  "git.ignoredRepositories": ["/Users/iandavis.pyenv"]
 }

@@ -127,6 +127,12 @@ ServerManager.prototype.prepareResources = async function (resources = []) {
 //   }
 // };
 
+PsychoJS.prototype.setRedirectUrls = function (completionUrl, cancellationUrl) {
+  const regex = /https?:\/\/?/;
+  this._completionUrl = completionUrl.replace(regex, "https://");
+  this._cancellationUrl = cancellationUrl.replace(regex, "https://");
+};
+
 ExperimentHandler.prototype.normalSave = ExperimentHandler.prototype.save;
 ExperimentHandler.prototype.save = async function ({
   attributes = [],
