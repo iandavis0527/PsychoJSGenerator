@@ -18,6 +18,7 @@ This project is designed with simplicity and ease of use in mind, and requires o
 
 ## Install
 
+1. Build the Javascript version of your experiment (from the Builder interface, you can use the ![javascript-build-button](https://user-images.githubusercontent.com/99781049/165622217-4e81a0cf-6f92-4d57-b1de-4626773b306c.png) button)
 1. [Windows] Launch `git bash` (from start menu or desktop)
 1. [Mac/Linux] Launch a terminal window
    1. All the steps below should be run within this terminal window. You can simply copy and paste the commands, and replace name where relevant.
