@@ -22,7 +22,7 @@ This project is designed with simplicity and ease of use in mind, and requires o
 1. [Mac/Linux] Launch a terminal window
    1. All the steps below should be run within this terminal window. You can simply copy and paste the commands, and replace name where relevant.
 1. Install this package using pip: `pip install git+https://github.com/iandavis0527/PsychoJSGenerator.git`
-1. Generate a template for your project: `create-PsychoJS-project /path/to/project_script.js`. Replace the path with the path to your PsychoJS generated .js file.
+1. Generate a template for your project: `create-psychojs-project /path/to/project_script.js`. Replace the path with the path to your PsychoJS generated .js file.
 1. Run your project (locally) using: `run-PsychoJS-project` from your project directory
 1. Deploy your project to MindModeling using: See [Deploying to MindModeling](#Deploying-to-MindModeling)
 
