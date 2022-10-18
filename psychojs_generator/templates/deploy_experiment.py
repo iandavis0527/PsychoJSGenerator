@@ -2,39 +2,10 @@ from calendar import c
 import datetime
 import pathlib
 import json
-import subprocess
 
+import deploy_experiment_local_builds
 
-def run_command(args, cwd=None):
-    return subprocess.run(" ".join(args), cwd=cwd, shell=True)
-
-
-def run_scp_command(source, destination, private_key_file, vm_name, vm_username, cwd, recursive=True):
-    args = [
-        "scp",
-        "-i {0}".format(private_key_file),
-        '-o ProxyCommand="ssh {0}@udri.mindmodeling.org -W %h:%p"'.format(vm_username),
-        source,
-        "{0}:{1}".format(vm_name, destination),
-    ]
-
-    if recursive:
-        args.insert(3, "-r")
-
-    return run_command(args, cwd=cwd)
-
-
-def run_ssh_command(command, private_key_file, vm_name, vm_username, cwd):
-    return run_command(
-        [
-            "ssh",
-            "-i {0}".format(private_key_file),
-            '-o ProxyCommand="ssh {0}@udri.mindmodeling.org -W %h:%p"'.format(vm_username),
-            vm_name,
-            "'{0}'".format(command),
-        ],
-        cwd=cwd,
-    )
+from deploy_utils import run_scp_command, run_ssh_command, check_vm_dns
 
 
 def main():
@@ -56,7 +27,15 @@ def main():
     with open(path.joinpath("server_config.json"), "w") as json_file:
         json.dump(server_config, json_file)
 
-    
+    dns_available = check_vm_dns(vm_name)
+
+    if not dns_available:
+        print(
+            "Virtual Machine DNS Check failed, couldn't ping www.google.com. Resorting to local docker image builds instead."
+        )
+        # Check the VMs DNS by pinging google.com. If we can't hit it, assume the DNS issues are persisting and that we will need to suffice with local builds for now.
+        return deploy_experiment_local_builds.main()
+
     run_ssh_command(
         command="rm -rf psychojs-project; mkdir psychojs-project; mkdir psychojs-project/results",
         private_key_file=private_key_file,

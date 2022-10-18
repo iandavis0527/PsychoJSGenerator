@@ -6,6 +6,9 @@ import platform
 import shutil
 import os
 import re
+import sys
+
+from psychojs_generator import install_local_docker
 
 from jinja2 import FileSystemLoader, Environment, select_autoescape
 
@@ -168,12 +171,16 @@ def build_template(
     result_directory_name="results",
     vm_name="vm_name",
     vm_username="vm_username",
+    force_docker_reinstall=False,
 ):
     project_name = os.path.splitext(pathlib.Path(project_script_name).resolve().name)[0]
     psychojs_version = extract_psychojs_version(project_script_filepath=project_script_name)
     project_path = pathlib.Path(project_name).resolve()
     experiment_path = pathlib.Path(project_path, "experiment").resolve()
     template_path = pathlib.Path(pathlib.Path(__file__).parent.absolute(), "templates")
+
+    print("Installing docker locally to support local container builds when necessary.")
+    install_local_docker.install_docker(force_reinstall=force_docker_reinstall)
 
     print("Determined psychojs version {0} from project script".format(psychojs_version))
     print("Using template directory {0}".format(template_path))
@@ -217,6 +224,14 @@ def build_template(
         pathlib.Path(project_path, "Dockerfile"),
     )
 
+    shutil.copyfile(
+        pathlib.Path(template_path, "deploy_utils.py"),
+        pathlib.Path(project_path, "deploy_utils.py"),
+    )
+    shutil.copyfile(
+        pathlib.Path(template_path, "deploy_experiment_local_builds.py"),
+        pathlib.Path(project_path, "deploy_experiment_local_builds.py"),
+    )
     shutil.copyfile(
         pathlib.Path(template_path, "deploy_experiment.py"),
         pathlib.Path(project_path, "deploy_experiment.py"),
@@ -301,16 +316,26 @@ def main():
         default="vm_username",
         help="Your MM VM username (leave blank if you don't have one yet)",
     )
+    parser.add_argument("--force_docker_install", action="store_true", default=False, help=argparse.SUPPRESS)
+    parser.add_argument("--verbose", default=False, help="Show verbose error information")
     args = parser.parse_args()
-    build_template(
-        project_script_name=args.project_script,
-        # psychojs_version=args.psychojs_version,
-        use_latest_git=args.latest_version,
-        server_port=args.server_port,
-        result_directory_name=args.result_directory_name,
-        vm_name=args.vm_name,
-        vm_username=args.vm_username,
-    )
+
+    try:
+        build_template(
+            project_script_name=args.project_script,
+            # psychojs_version=args.psychojs_version,
+            use_latest_git=args.latest_version,
+            server_port=args.server_port,
+            result_directory_name=args.result_directory_name,
+            vm_name=args.vm_name,
+            vm_username=args.vm_username,
+            force_docker_reinstall=args.force_docker_install,
+        )
+    except RuntimeError as err:
+        import traceback
+
+        traceback.print_exc()
+        sys.exit(1)
 
 
 if __name__ == "__main__":

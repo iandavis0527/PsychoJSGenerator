@@ -7,3 +7,7 @@ dist/
 node_modules/
 __pycache__
 integration-testing-project/
+docker.dmg
+docker.exe
+psychojs-project.tar.xz
+psychojs-project.tar
