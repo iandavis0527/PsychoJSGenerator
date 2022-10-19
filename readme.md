@@ -70,7 +70,7 @@ I would also like to know the local network IP Address of my Virtual Machine, in
 Once you have received confirmation of your virtual machine setup from the MindModeling adminstrator, you will need to update your project configuration with the relevant information. The contact should also provide a `Local IP Address (e.g. 192.168.1.1)` in their response. You will need this in the steps below.
 
 1. Open `server_config.json` (plain text file).
-1. Change the `vm_name` key to your Local IP Address provided to you, as mentioned above.
+1. Change the `vm_name` key to the `Local IP Address` provided to you, as mentioned above.
 1. Change the `vm_username` key to your virtual machine username.
 1. Save the file.
 1. You are now ready to deploy to MindModeling using the `deploy_experiment.py` python script.
