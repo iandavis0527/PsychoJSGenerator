@@ -15,6 +15,7 @@ This project is designed with simplicity and ease of use in mind, and requires o
 1. [NodeJS](https://nodejs.org/en/) (version 16.14.0 on MacOS at the time of writing this, 04/18/2022)
 1. [python](https://www.python.org/downloads/) (3.6+)
 1. [git](https://git-scm.com/downloads) (version 2.23.0 on MacOS at the time of writing this, 04/18/2022)
+1. [Docker](https://www.docker.com/) `(NOTE: the script will attempt to auto download and install this!)`
 
 ## Install
 
@@ -129,6 +130,10 @@ These are the key files to note (in order of areas that you will likely change):
 - `id_rsa` and `id_rsa.pub`: This is your SSH Private Key File. This is required in order to SSH into your virtual machine for deployment.
 
 # Troubleshooting
+
+## Docker Workarounds
+Due to the potential for DNS and network issues, or limited network connectivity in production environments, this tool has been modified as of 10/22 to support building docker containers locally and deploying the prebuilt image, rather than building the containers on the production environment.
+Currently, this feature is enabled automatically by testing the deploy server's dns capabilities by pinging google before building. It then decides whether or not a local build will be required, and proceeds accordingly.
 
 ## Update 04/18/2022
 
