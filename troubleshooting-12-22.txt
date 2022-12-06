@@ -1,0 +1,4 @@
+Standalone psychopy
+Bundle python into the installer potentially(?)
+Make it clear that the steps should be run from git bash
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser — npm install failed to execute for the psychojs repo I think??
