@@ -31,7 +31,7 @@ This project is designed with simplicity and ease of use in mind, and requires o
 # Local Testing
 
 When developing or testing your experiment, it will be extremely useful to run your server project locally.
-You can run `run-project-start` from a terminal or command prompt in your project directory to start the server, then navigate to http://localhost:3000 in your browser to view your experiment.
+You can run `run-psychojs-project` from a terminal or command prompt in your project directory to start the server, then navigate to http://localhost:3000 in your browser to view your experiment.
 
 # Deploying to MindModeling
 
