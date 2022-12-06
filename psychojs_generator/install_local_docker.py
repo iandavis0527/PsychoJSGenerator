@@ -38,7 +38,7 @@ def download_docker_installer():
     script_dir = os.path.realpath(os.path.dirname(__file__))
     print("using script filepath: {0}".format(script_dir))
     command = [
-        pathlib.Path(script_dir, "templates", "wget"),
+        str(pathlib.Path(script_dir, "templates", "wget")),
         download_link,
         "-O",
         "{0}".format(filename),
