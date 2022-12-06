@@ -12,8 +12,9 @@ def is_docker_installed():
     if is_mac():
         return os.path.exists("/usr/local/bin/docker")
     else:
-        return os.path.exists("C", "Program Files", "Docker", "Docker", "Docker Desktop.exe") or os.path.exists(
-            "C", "Program Files (x86)", "Docker", "Docker", "Docker Desktop.exe"
+        return (
+            pathlib.Path("C", "Program Files", "Docker", "Docker", "Docker Desktop.exe").exists()
+            or pathlib.Path("C", "Program Files (x86)", "Docker", "Docker", "Docker Desktop.exe").exists()
         )
 
 
