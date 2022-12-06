@@ -78,14 +78,12 @@ function flattenedTree(listing, namePrefix = "") {
 app.get("/resources/list", (req, res, next) => {
     const tree = flattenedTree(dirTree(config.resource_directory).children).map(
         (entry) => ({
-            name: entry.name.replace(
-                config.resource_directory.substring(2),
-                ""
-            ),
-            path: entry.path.replace(
-                config.resource_directory.substring(2),
-                "/resources"
-            ),
+            name: entry.name
+                .replace(config.resource_directory.substring(2), "")
+                .replace("\\\\", "/"),
+            path: entry.path
+                .replace("\\\\", "/")
+                .replace(config.resource_directory.substring(2), "/resources"),
         })
     );
     res.set("Content-Type", "application/json");
