@@ -7,6 +7,7 @@ import shutil
 import os
 import re
 import sys
+import traceback
 
 from psychojs_generator import install_local_docker
 
@@ -187,8 +188,7 @@ def build_template(
             "Failed to automatically install docker, you will need to manually install Docker Desktop before deploying to mind modeling."
         )
         print("You can download here: https://www.docker.com/products/docker-desktop/")
-        import traceback
-        traceback.print_exception(error)
+        traceback.print_exc()
 
     print("Determined psychojs version {0} from project script".format(psychojs_version))
     print("Using template directory {0}".format(template_path))
