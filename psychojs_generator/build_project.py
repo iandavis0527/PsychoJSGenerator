@@ -180,7 +180,11 @@ def build_template(
     template_path = pathlib.Path(pathlib.Path(__file__).parent.absolute(), "templates")
 
     print("Installing docker locally to support local container builds when necessary.")
-    install_local_docker.install_docker(force_reinstall=force_docker_reinstall)
+    try:
+        install_local_docker.install_docker(force_reinstall=force_docker_reinstall)
+    except:
+        print("Failed to automatically install docker, you will need to manually install Docker Desktop before deploying to mind modeling.")
+        print("You can download here: https://www.docker.com/products/docker-desktop/")
 
     print("Determined psychojs version {0} from project script".format(psychojs_version))
     print("Using template directory {0}".format(template_path))
