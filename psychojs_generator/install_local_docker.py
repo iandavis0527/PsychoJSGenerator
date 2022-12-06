@@ -35,8 +35,16 @@ def find_docker_installer():
 def download_docker_installer():
     download_link = "https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe"
     filename = "docker.exe"
-    command = ["wget", download_link, "-O", "{0}".format(filename)]
     print("Downloading docker installer with command: {0}".format(" ".join(command)))
+    script_dir = os.path.realpath(os.path.dirname(__file__))
+    print("using script filepath: {0}".format(script_dir))
+    command = [
+        pathlib.Path(script_dir, "templates", "wget"),
+        download_link,
+        "-O",
+        "{0}".format(filename),
+    ]
+
     process = subprocess.run(command, capture_output=True)
     return filename, process.returncode, process.stderr
 
