@@ -182,9 +182,13 @@ def build_template(
     print("Installing docker locally to support local container builds when necessary.")
     try:
         install_local_docker.install_docker(force_reinstall=force_docker_reinstall)
-    except:
-        print("Failed to automatically install docker, you will need to manually install Docker Desktop before deploying to mind modeling.")
+    except Exception as error:
+        print(
+            "Failed to automatically install docker, you will need to manually install Docker Desktop before deploying to mind modeling."
+        )
         print("You can download here: https://www.docker.com/products/docker-desktop/")
+        import traceback
+        traceback.print_exception(error)
 
     print("Determined psychojs version {0} from project script".format(psychojs_version))
     print("Using template directory {0}".format(template_path))
