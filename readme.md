@@ -6,6 +6,11 @@ Leveraging the [PsychoJS](https://www.psychopy.org/online/index.html) library, p
 
 You should take some time to read the high-level documentation for PsychoJS, linked above. At a minimum, check the [compatibility table](https://www.psychopy.org/online/status.html) to make sure that all the psychopy features you need are supported in PsychoJS. Some things are at the mercy of the framework and others are at the mercy of browser and web limitations. This utility does not try to fix or maintain these frameworks, just make using them easier.
 
+Also please take note that if using custom code blocks in the psychopy builder, the Auto->JS feature is a crude translator that should not be trusted for complex tasks. If you find yourself relying on or importing any python standard libraries in code you write, note that the javascript translation is *extremely unlikely* to work. To deal with this, you have one of two options:
+
+* maintain two versions of your code, one in python and one in javascript, and set the code type to "both" instead of "auto->js"
+* avoid using any libraries (including python standard libraries) and instead write your own python functions for any functionality you need. Note that even this method may still have translation issues in specific scenarios.
+
 # Usage
 
 This project is designed with simplicity and ease of use in mind, and requires only a few steps to get started (this guide assumes windows but should be easily translatable to any OS):
