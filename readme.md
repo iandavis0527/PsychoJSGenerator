@@ -140,6 +140,13 @@ These are the key files to note (in order of areas that you will likely change):
 Due to the potential for DNS and network issues, or limited network connectivity in production environments, this tool has been modified as of 10/22 to support building docker containers locally and deploying the prebuilt image, rather than building the containers on the production environment.
 Currently, this feature is enabled automatically by testing the deploy server's dns capabilities by pinging google before building. It then decides whether or not a local build will be required, and proceeds accordingly.
 
+## Windows Script Execution Errors
+On windows, you may encounter errors when trying to run `create-psychojs-project` along the lines of: `script cannot be loaded because running scripts is disabled on this system.` If you run into this error, follow these steps (requires administrative rights):
+
+1. Open a powershell window as admin. To do this, type "powershell" into the start menu, right click and run as administrator.
+1. Run this command: `Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser`
+1. When prompted: Enter 'A'
+
 ## Update 04/18/2022
 
 The tool was updated to extrapolate the required PsychoJS version from your project by requiring you to provide your PsychoJS Javascript generated file when creating the project.
