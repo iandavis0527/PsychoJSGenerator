@@ -15,6 +15,7 @@ This project is designed with simplicity and ease of use in mind, and requires o
 1. [NodeJS](https://nodejs.org/en/) (version 16.14.0 on MacOS at the time of writing this, 04/18/2022)
 1. [python](https://www.python.org/downloads/) (3.6+)
 1. [git](https://git-scm.com/downloads) (version 2.23.0 on MacOS at the time of writing this, 04/18/2022)
+1. [Docker](https://www.docker.com/) `(NOTE: the script will attempt to auto download and install this!)`
 
 ## Install
 
@@ -24,13 +25,13 @@ This project is designed with simplicity and ease of use in mind, and requires o
    1. All the steps below should be run within this terminal window. You can simply copy and paste the commands, and replace name where relevant.
 1. Install this package using pip: `pip install git+https://github.com/iandavis0527/PsychoJSGenerator.git`
 1. Generate a template for your project: `create-psychojs-project /path/to/project_script.js`. Replace the path with the path to your PsychoJS generated .js file. This will usually be located within an 'html' folder next to your psychopy experiment file, after building the javascript version.
-1. Run your project (locally) using: `run-psychojs-project` from your project directory
+1. Run your project (locally) using: See [Local Testing](#Local-Testing)
 1. Deploy your project to MindModeling using: See [Deploying to MindModeling](#Deploying-to-MindModeling)
 
 # Local Testing
 
 When developing or testing your experiment, it will be extremely useful to run your server project locally.
-You can run `npm run start` from a terminal or command prompt in your project directory to start the server, then navigate to http://localhost:3000 in your browser to view your experiment.
+You can run `run-project-start` from a terminal or command prompt in your project directory to start the server, then navigate to http://localhost:3000 in your browser to view your experiment.
 
 # Deploying to MindModeling
 
@@ -62,14 +63,15 @@ I would like my virtual machine to be named {machine_name}.
 I would like my virtual machine username to be {vm_username}.
 I would like to redirect internet traffic to the url https://sub_url.mindmodeling.org to my virtual machine at port 8080.
 I have attached my id_rsa.pub file for SSH access.
+I would also like to know the local network IP Address of my Virtual Machine, in order to work around any DNS issues.
 ```
 
 ## Project SSH Configuration
 
-Once you have received confirmation of your virtual machine setup from the MindModeling adminstrator, you will need to update your project configuration with the relevant information.
+Once you have received confirmation of your virtual machine setup from the MindModeling adminstrator, you will need to update your project configuration with the relevant information. The contact should also provide a `Local IP Address (e.g. 192.168.1.1)` in their response. You will need this in the steps below.
 
 1. Open `server_config.json` (plain text file).
-1. Change the `vm_name` key to your virtual machine name.
+1. Change the `vm_name` key to the `Local IP Address` provided to you, as mentioned above.
 1. Change the `vm_username` key to your virtual machine username.
 1. Save the file.
 1. You are now ready to deploy to MindModeling using the `deploy_experiment.py` python script.
@@ -128,6 +130,10 @@ These are the key files to note (in order of areas that you will likely change):
 - `id_rsa` and `id_rsa.pub`: This is your SSH Private Key File. This is required in order to SSH into your virtual machine for deployment.
 
 # Troubleshooting
+
+## Docker Workarounds
+Due to the potential for DNS and network issues, or limited network connectivity in production environments, this tool has been modified as of 10/22 to support building docker containers locally and deploying the prebuilt image, rather than building the containers on the production environment.
+Currently, this feature is enabled automatically by testing the deploy server's dns capabilities by pinging google before building. It then decides whether or not a local build will be required, and proceeds accordingly.
 
 ## Update 04/18/2022
 
