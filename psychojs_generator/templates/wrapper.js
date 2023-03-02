@@ -1,41 +1,41 @@
 import { core, data } from "./lib/psychojs-{version}.js";
 
 const { PsychoJS, ServerManager } = core;
-const { ExperimentHandler, TrialHandler } = data;
+const { ExperimentHandler } = data;
 
 ServerManager.prototype._listResources = async function () {
-  return (await fetch("/resources/list")).json();
+    return (await fetch("/resources/list")).json();
 };
 
 ServerManager.prototype._downloadResources = async function (resources) {
-  console.debug("_downloadResources called");
-  for (const { name, path } of resources) {
-    let data = await fetch(path);
+    console.debug("_downloadResources called");
+    for (const { name, path } of resources) {
+        let data = await fetch(path);
 
-    data = await data.blob();
+        data = await data.blob();
 
-    if (name.endsWith(".xlsx")) {
-      data = await data.arrayBuffer();
+        if (name.endsWith(".xlsx")) {
+            data = await data.arrayBuffer();
+        }
+
+        if (name.endsWith(".png") || name.endsWith(".jpg")) {
+            const element = new Image();
+            element.src = URL.createObjectURL(data);
+            data = element;
+        }
+
+        this._resources.set(name, {
+            path: path,
+            data: data,
+            status: ServerManager.ResourceStatus.DOWNLOADED,
+        });
     }
-
-    if (name.endsWith(".png") || name.endsWith(".jpg")) {
-      const element = new Image();
-      element.src = URL.createObjectURL(data);
-      data = element;
-    }
-
-    this._resources.set(name, {
-      path: path,
-      data: data,
-      status: ServerManager.ResourceStatus.DOWNLOADED,
-    });
-  }
 };
 
 ServerManager.prototype.prepareResources = async function (resources = []) {
-  console.debug("prepareResources called");
-  resources = await this._listResources();
-  return this._downloadResources(resources);
+    console.debug("prepareResources called");
+    resources = await this._listResources();
+    return this._downloadResources(resources);
 };
 
 // TrialHandler.importConditions = function (
@@ -128,32 +128,34 @@ ServerManager.prototype.prepareResources = async function (resources = []) {
 // };
 
 PsychoJS.prototype.setRedirectUrls = function (completionUrl, cancellationUrl) {
-  const regex = /https?:\/\/?/;
-  this._completionUrl = completionUrl.replace(regex, "https://");
-  this._cancellationUrl = cancellationUrl.replace(regex, "https://");
+    const regex = /https?:\/\/?/;
+    this._completionUrl = completionUrl.replace(regex, "https://");
+    this._cancellationUrl = cancellationUrl.replace(regex, "https://");
 };
 
 ExperimentHandler.prototype.normalSave = ExperimentHandler.prototype.save;
 ExperimentHandler.prototype.save = async function ({
-  attributes = [],
-  sync = false,
+    attributes = [],
+    sync = false,
 } = {}) {
-  const info = this.extraInfo;
-  const __experimentName =
-    typeof info.expName !== "undefined"
-      ? info.expName
-      : this.psychoJS.config.experiment.name;
-  const __participant =
-    typeof info.participant === "string" && info.participant.length > 0
-      ? info.participant
-      : "PARTICIPANT";
-  const __datetime =
-    typeof info.date !== "undefined" ? info.date : MonotonicClock.getDateStr();
-  const key =
-    __participant + "_" + __experimentName + "_" + __datetime + ".csv";
-  const worksheet = XLSX.utils.json_to_sheet(this._trialsData);
-  const csv = "\ufeff" + XLSX.utils.sheet_to_csv(worksheet);
-  let formData = new FormData();
-  formData.append("result", new Blob([csv], { type: "text/csv" }), key);
-  await fetch("/results", { method: "POST", body: formData });
+    const info = this.extraInfo;
+    const __experimentName =
+        typeof info.expName !== "undefined"
+            ? info.expName
+            : this.psychoJS.config.experiment.name;
+    const __participant =
+        typeof info.participant === "string" && info.participant.length > 0
+            ? info.participant
+            : "PARTICIPANT";
+    const __datetime =
+        typeof info.date !== "undefined"
+            ? info.date
+            : MonotonicClock.getDateStr();
+    const key =
+        __participant + "_" + __experimentName + "_" + __datetime + ".csv";
+    const worksheet = XLSX.utils.json_to_sheet(this._trialsData);
+    const csv = "\ufeff" + XLSX.utils.sheet_to_csv(worksheet);
+    let formData = new FormData();
+    formData.append("result", new Blob([csv], { type: "text/csv" }), key);
+    await fetch("/results", { method: "POST", body: formData });
 };
