@@ -12,7 +12,7 @@ shutil.copyfile(
 
 setup(
     name="psychojs_generator",
-    version="2022.12.06.15.47",
+    version="2023.03.07.09.55",
     author="Ian Davis",
     author_email="iandavis0527@gmail.com",
     description="A utility package that can generate nodejs and docker projects to host a custom psychojs project on the web, allowing CSV file uploads via NodeJS and multer.",
