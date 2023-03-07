@@ -159,3 +159,8 @@ ExperimentHandler.prototype.save = async function ({
     formData.append("result", new Blob([csv], { type: "text/csv" }), key);
     await fetch("/results", { method: "POST", body: formData });
 };
+
+$(document).on("keydown", function (e) {
+    console.debug("jquery got keydown");
+    if (e.key == "Escape") e.stopPropagation();
+});
