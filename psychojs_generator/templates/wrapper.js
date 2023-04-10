@@ -1,7 +1,12 @@
-import { core, data } from "./lib/psychojs-{version}.js";
-
+import { core, data, util } from "./lib/psychojs-2022.2.4.js";
 const { PsychoJS, ServerManager } = core;
 const { ExperimentHandler } = data;
+
+const version = "0.0.22";
+
+console.debug(
+    `[PSYCHOJS_GENERATOR] experiment generated with psychojs generator version ${version}`
+);
 
 ServerManager.prototype._listResources = async function () {
     return (await fetch("/resources/list")).json();
@@ -38,95 +43,6 @@ ServerManager.prototype.prepareResources = async function (resources = []) {
     return this._downloadResources(resources);
 };
 
-// TrialHandler.importConditions = function (
-//   serverManager,
-//   resourceName,
-//   selection = null
-// ) {
-//   if (resourceName !== "conditions.xlsx") {
-//     return TrialHandler.normalImportConditions(
-//       serverManager,
-//       resourceName,
-//       selection
-//     );
-//   }
-
-//   try {
-//     const resourceValue = serverManager.getResource(resourceName, true);
-//     const workbook = XLSX.read(resourceValue);
-
-//     // we consider only the first worksheet:
-//     if (workbook.SheetNames.length === 0) {
-//       throw "workbook should contain at least one worksheet";
-//     }
-//     const sheetName = workbook.SheetNames[0];
-//     const worksheet = workbook.Sheets[sheetName];
-
-//     // worksheet to array of arrays (the first array contains the fields):
-//     const sheet = XLSX.utils.sheet_to_json(worksheet, {
-//       header: 1,
-//       blankrows: false,
-//     });
-//     const fields = sheet.shift();
-
-//     // (*) select conditions:
-//     const selectedRows =
-//       selection === null ? sheet : util.selectFromArray(sheet, selection);
-
-//     // (*) return the selected conditions as an array of 'object as map':
-//     // [
-//     // {field0: value0-0, field1: value0-1, ...}
-//     // {field0: value1-0, field1: value1-1, ...}
-//     // ...
-//     // ]
-//     let trialList = new Array(selectedRows.length - 1);
-//     for (let r = 0; r < selectedRows.length; ++r) {
-//       let row = selectedRows[r];
-//       let trial = {};
-//       for (let l = 0; l < fields.length; ++l) {
-//         let value = row[l];
-
-//         // Look for string encoded arrays in the form of '[1, 2]'
-//         const arrayMaybe = util.turnSquareBracketsIntoArrays(value);
-
-//         if (Array.isArray(arrayMaybe)) {
-//           // Keep the first match if more than one are found. If the
-//           // input string looked like '[1, 2][3, 4]' for example,
-//           // the resulting `value` would be [1, 2]. When `arrayMaybe` is
-//           // empty, `value` turns `undefined`.
-//           value = arrayMaybe;
-//         }
-
-//         if (typeof value === "string") {
-//           const numberMaybe = Number.parseFloat(value);
-
-//           // if value is a numerical string, convert it to a number:
-//           if (
-//             !isNaN(numberMaybe) &&
-//             numberMaybe.toString().length === value.length
-//           ) {
-//             value = numberMaybe;
-//           } else {
-//             // Parse doubly escaped line feeds
-//             value = value.replace(/(\n)/g, "\n");
-//           }
-//         }
-
-//         trial[fields[l]] = value;
-//       }
-//       trialList[r] = trial;
-//     }
-
-//     return trialList;
-//   } catch (error) {
-//     throw {
-//       origin: "TrialHandler.importConditions",
-//       context: `when importing condition: ${resourceName}`,
-//       error,
-//     };
-//   }
-// };
-
 PsychoJS.prototype.setRedirectUrls = function (completionUrl, cancellationUrl) {
     const regex = /https?:\/\/?/;
     this._completionUrl = completionUrl.replace(regex, "https://");
@@ -160,7 +76,95 @@ ExperimentHandler.prototype.save = async function ({
     await fetch("/results", { method: "POST", body: formData });
 };
 
-$(document).on("keydown", function (e) {
-    console.debug("jquery got keydown");
-    if (e.key == "Escape") e.stopPropagation();
-});
+PsychoJS.prototype.quit = async function ({
+    message,
+    isCompleted = false,
+} = {}) {
+    console.debug(`[PSYCHOJS_GENERATOR] inside custom PsychoJS.quit function`);
+    this.logger.info("[PsychoJS] Quit.");
+
+    this._experiment.experimentEnded = true;
+    this._status = PsychoJS.Status.FINISHED;
+    const isServerEnv =
+        this.getEnvironment() === ExperimentHandler.Environment.SERVER;
+
+    try {
+        // stop the main scheduler:
+        this._scheduler.stop();
+
+        // remove the beforeunload listener:
+        if (isServerEnv) {
+            window.removeEventListener(
+                "beforeunload",
+                this.beforeunloadCallback
+            );
+        }
+
+        // save the results and the logs of the experiment:
+        this.gui.finishDialog({
+            text: "Terminating the experiment. Please wait a few moments...",
+            nbSteps: 2 + (isServerEnv ? 1 : 0),
+        });
+
+        if (isCompleted || this._config.experiment.saveIncompleteResults) {
+            if (!this._serverMsg.has("__noOutput")) {
+                this.gui.finishDialogNextStep("saving results");
+                await this._experiment.save();
+                this.gui.finishDialogNextStep("saving logs");
+                await this._logger.flush();
+            }
+        }
+
+        // close the session:
+        if (isServerEnv) {
+            this.gui.finishDialogNextStep("closing the session");
+            await this._serverManager.closeSession(isCompleted);
+        }
+
+        // thank participant for waiting and either quit or redirect:
+        let text = "Thank you for your patience.<br/><br/>";
+        text += typeof message !== "undefined" ? message : "Goodbye!";
+        const self = this;
+        this._gui.dialog({
+            message: text,
+            onOK: () => {
+                // close the window:
+                self._window.close();
+
+                // remove everything from the browser window:
+                while (document.body.hasChildNodes()) {
+                    document.body.removeChild(document.body.lastChild);
+                }
+
+                // return from fullscreen if we were there:
+                this._window.closeFullScreen();
+
+                // redirect if redirection URLs have been provided:
+                if (isCompleted && typeof self._completionUrl !== "undefined") {
+                    console.debug(`redirecting to completion url`);
+                    window.location = self._completionUrl;
+                } else if (
+                    !isCompleted &&
+                    typeof self._cancellationUrl !== "undefined" &&
+                    self._cancellationUrl !== ""
+                ) {
+                    console.debug(`redirecting to cancellation url`);
+                    // window.location = self._cancellationUrl;
+                } else {
+                    console.debug(
+                        `no redirection urls defined, closing window`
+                    );
+                    window.close();
+                }
+            },
+        });
+    } catch (error) {
+        console.error(error);
+        this._gui.dialog({ error });
+    }
+};
+
+// $(document).on("keydown", function (e) {
+//     quitPsychoJS("The [Escape] key was pressed. Goodbye!", false);
+//     if (e.key == "Escape") e.stopPropagation();
+// });
